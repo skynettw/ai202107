@@ -8,3 +8,6 @@ def index(request):
 	special = lotto[0]
 	lotto = lotto[1:6]
 	return render(request, "index.html", locals())
+
+def news(request):
+	return render(request, "news.html", locals())
