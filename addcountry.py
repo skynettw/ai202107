@@ -1,6 +1,7 @@
 import os
 import django
 import pandas as pd
+# addcountry.py
 import time
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'datacenter.settings')
 django.setup()
