@@ -40,6 +40,8 @@ def show(request, id):
 def rank(request):
 	if request.method == 'POST':
 		id = request.POST["id"]
+		if id.strip() == "999":
+			return redirect("/rank/")
 		try:
 			country = Country.objects.get(id=id)
 		except:

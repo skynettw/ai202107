@@ -22,12 +22,11 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: [
-        {% for city in cities %}
-        	'{{city.name}}',
-        {% endfor %}
-        ],
-        // lables: {{names}},
+        labels: 
+        {% autoescape off %}
+        {{names}}
+        {% endautoescape %}
+        ,
         datasets: [{
             label: '城市人口排行',
         	  data: {{population}},
