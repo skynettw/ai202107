@@ -16,12 +16,13 @@ cities = list()
 for i in range(len(data)):
 	temp = tuple(data['cities'].iloc[i])
 	cities.append(temp)
-# print(cities)
 for city in cities:
-	#要先根據country_id的內容，去找到Country表格裡面的記錄
-	#再把這個記錄放到下面指令的country參數
-	# temp = City(name=city[1], country=???, population=city[3])
-	# temp.save()
-# countries = Country.objects.all() <=改成City的所有記錄顯示
-# print(countries)
-# print("Done!")
+	try:
+		country = Country.objects.get(country_id=city[2])
+		temp = City(name=city[1], country=country, population=city[3])
+		temp.save()
+	except:
+		pass
+cities = City.objects.all()
+print(cities)
+print("Done!")
