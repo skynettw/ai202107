@@ -43,7 +43,7 @@ def rank(request):
 		try:
 			country = Country.objects.get(id=id)
 		except:
-			redirect("/rank/")
+			return redirect("/rank/")
 		cities = City.objects.filter(country=country)
 	else:
 		cities = City.objects.all()
@@ -53,10 +53,12 @@ def rank(request):
 def chart(request):
 	if request.method == 'POST':
 		id = request.POST["id"]
+		if id.strip()=="999":
+			return redirect("/chart/")
 		try:
 			country = Country.objects.get(id=id)
 		except:
-			redirect("/chart/")
+			return redirect("/chart/")
 		cities = City.objects.filter(country=country)
 	else:
 		cities = City.objects.all()
