@@ -6,8 +6,9 @@
 <!-- {{ countries }} -->
 	<hr>
   <form action="/rank/" method=POST>
+  	國家選擇：
   	<select name="id">
-  		<option value="999">請選擇一個國家</option>
+  		<option value="999">全部顯示</option>
   		{% for country in countries %}
   			<option value="{{country.id}}">{{country.name}}</option>
   		{% endfor %}

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.contrib.auth import logout
 import random
 from mysite.models import Post, Country, City
 from plotly.offline import plot
@@ -30,6 +32,7 @@ def news(request):
 	posts = Post.objects.all()
 	return render(request, "news.html", locals())
 
+@login_required(login_url="/admin/login/")
 def show(request, id):
 	try:
 		post = Post.objects.get(id=id)
@@ -37,6 +40,7 @@ def show(request, id):
 		return redirect("/news/")
 	return render(request, "show.html", locals())
 
+@login_required(login_url="/admin/login/")
 def rank(request):
 	if request.method == 'POST':
 		id = request.POST["id"]
@@ -52,6 +56,7 @@ def rank(request):
 	countries = Country.objects.all()
 	return render(request, 'rank.html', locals())
 
+@login_required(login_url="/admin/login/")
 def chart(request):
 	if request.method == 'POST':
 		id = request.POST["id"]
@@ -68,3 +73,15 @@ def chart(request):
 	names = [city.name for city in cities]
 	population = [city.population for city in cities]
 	return render(request, "chart.html", locals())
+
+def mylogout(request):
+	logout(request)
+	return redirect("/")
+
+def delete(request, id):
+	try:
+		post = Post.objects.get(id=id)
+		post.delete()
+	except:
+		return redirect("/news/")
+	return redirect("/news/")
